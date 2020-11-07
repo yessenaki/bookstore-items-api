@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/yesseneon/bookstore_items_api/domain/item"
-	"github.com/yesseneon/bookstore_utils/errors"
+	"github.com/yesseneon/bookstore-items-api/domain/item"
+	"github.com/yesseneon/bookstore-utils/errors"
 )
 
 var ItemService itemServiceInterface = &itemService{}
@@ -12,13 +12,16 @@ type itemServiceInterface interface {
 	Get(string) (*item.Item, *errors.RESTError)
 }
 
-type itemService struct {
+type itemService struct{}
+
+func (svc itemService) Create(i item.Item) (*item.Item, *errors.RESTError) {
+	if err := i.Save(); err != nil {
+		return nil, err
+	}
+
+	return *i, nil
 }
 
-func (srv itemService) Create(item.Item) (*item.Item, *errors.RESTError) {
-	return nil, errors.InternalServerError()
-}
-
-func (srv itemService) Get(string) (*item.Item, *errors.RESTError) {
+func (svc itemService) Get(string) (*item.Item, *errors.RESTError) {
 	return nil, errors.InternalServerError()
 }

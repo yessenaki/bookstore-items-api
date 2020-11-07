@@ -10,12 +10,13 @@ import (
 var router = mux.NewRouter()
 
 func StartApp() {
+	elasticsearch.Init()
 	mapUrls()
 
-	server := &http.Server{
+	srv := &http.Server{
 		Handler: router,
 		Addr:    "127.0.0.1:8000",
 	}
 
-	log.Fatal(server.ListenAndServe())
+	log.Fatal(srv.ListenAndServe())
 }
